@@ -1,47 +1,39 @@
----
-- name: Add Docker official GPG key
-  become: true
-  shell: |
-    sudo apt-get update
-    sudo apt-get install ca-certificates curl
-    sudo install -m 0755 -d /etc/apt/keyrings
-    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-    sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-- name: Add Docker repository
-  become: true
-  shell: |
-    echo \
-      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-      $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
-      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-    sudo apt-get update
-
-
-- name: Install Docker
+- name: Update apt cache
+  apt:
+    update_cache: yes
+- name: Install required packages
   apt:
     name:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
-      - docker-buildx-plugin
-      - docker-compose-plugin
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
     state: present
-    update_cache: yes
-
-- name: Ensure Docker group exists
-  group:
-    name: docker
+- name: Add Docker GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
     state: present
-
+- name: Add Docker repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
+    state: present
+- name: Install Docker
+  apt:
+    name: docker-ce
+    state: present
+- name: Install Docker Compose
+  get_url:
+    url: https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    mode: "0755"
 - name: Add user to Docker group
   user:
-    name: "{{ ansible_user | default(ansible_env.USER) }}"
+    name: ubuntu
     groups: docker
     append: yes
 
-- name: Enable and start Docker service
-  systemd:
-    name: docker
-    enabled: yes
-    state: started
+
+
+
+
+
