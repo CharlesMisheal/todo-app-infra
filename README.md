@@ -34,8 +34,8 @@ Before proceeding, ensure you have the following installed and configured:
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/CharlesMisheal/DevOps-Stage-4
-   cd stage4-infra
+   git clone https://github.com/CharlesMisheal/todo-app-infra
+   cd todo-app-infra
    ```
 
 2. **Create a Terraform Variables File (`terraform.tfvars`)**
