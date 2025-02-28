@@ -34,7 +34,7 @@ Before proceeding, ensure you have the following installed and configured:
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/Jidetireni/stage4-infra.git
+   git clone https://github.com/CharlesMisheal/DevOps-Stage-4
    cd stage4-infra
    ```
 
@@ -119,10 +119,10 @@ After deployment, Terraform will output the EC2 instance's public IP:
 terraform output instance_ip
 ```
 To access the endpoints of the todo app:
-- **Login:** https://todoapphng.duckdns.org
-- **Auth API:** https://todoapphng.duckdns.org/api/auth
-- **Todos API:** https://todoapphng.duckdns.org/api/todos
-- **User API:** https://todoapphng.duckdns.org/api/users
+- **Login:** https://misheal.duckdns.org
+- **Auth API:** https://misheal.duckdns.org/api/auth
+- **Todos API:** https://misheal.duckdns.org/api/todos
+- **User API:** https://misheal.duckdns.org/api/users
 
 ---
 
