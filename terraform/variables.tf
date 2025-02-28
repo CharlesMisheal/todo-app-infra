@@ -17,5 +17,5 @@ variable "key_name" {
 variable "os_type" {
   description = "The operating system type (e.g., windows, linux)"
   type        = string
-  default     = "windows"  # Change to "linux" or "macos" as needed
+  default     = "linux"  # Change to "linux" or "macos" as needed
 }

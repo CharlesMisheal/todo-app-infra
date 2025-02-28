@@ -46,12 +46,12 @@ resource "local_file" "ansible_inventory" {
   })
   filename = "../ansible/inventory"
  }
-# resource "null_resource" "run_ansible" {
-#   provisioner "local-exec" {
-#     command = "sleep 120 && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ../ansible/inventory ../ansible/playbook.yml"
-#   }
-#   depends_on = [aws_instance.app_server, local_file.ansible_inventory]
-# }
+resource "null_resource" "run_ansible" {
+  provisioner "local-exec" {
+    command     = "echo 'Running Ansible...' && ansible-playbook -i ../ansible/inventory ../ansible/playbook.yml"
+    interpreter = ["bash", "-c"]
+  }
+}
 # resource "null_resource" "run_ansible" {
 #   provisioner "local-exec" {
 #     command = "sleep 120 && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ../ansible/inventory ../ansible/playbook.yml"
@@ -59,11 +59,4 @@ resource "local_file" "ansible_inventory" {
 #   }
 #   depends_on = [aws_instance.app_server, local_file.ansible_inventory]
 # }
-
-resource "null_resource" "run_ansible" {
-  provisioner "local-exec" {
-    command = "C:\\Users\\PRECISION\\Desktop\\todo-app-infra\\terraform\\run_ansible.bat"
-  }
-}
-
 
